@@ -1,5 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="https://jakarta.ee/xml/ns/jakartaee" xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd" id="WebApp_ID" version="6.0">
+  <security-role>
+		<role-name>role1</role-name>
+	</security-role> 
+	<!-- 시큐리티 역할 설정 -->
+    <security-constraint>
+		<web-resource-collection> 
+			<web-resource-name>JSPBook</web-resource-name> 
+			<!-- 프로젝트 명 -->
+			<url-pattern>/ch10/security01.jsp</url-pattern> 
+			<!-- 이 경로로 요청시 반응 -->
+			<http-method>GET</http-method> 					
+			<!-- 메서드 타입 -->
+		</web-resource-collection> 
+		<!-- 웹 자원 컬렉션 -->
+		<auth-constraint> 
+		<!-- 권한 부여된 사용자 이름 -->
+			<description></description>
+			<role-name>role1</role-name> 
+			<!-- tomcat-user.xml에 있는 사용자  -->
+		</auth-constraint>
+	</security-constraint> 
+	<!-- 시큐리티 제약 사항 설정 -->
+	<login-config>
+		<!-- <auth-method>BASIC</auth-method> -->
+		<!-- BASIC은 톰캣이 제공하는 얼럿을 이용하여 인증처리한다. -->
+		
+		<auth-method>FORM</auth-method>
+		<form-login-config>
+			<form-login-page>/ch10/login.jsp</form-login-page>
+			<!-- 로그인용 페이지 -->
+			<form-error-page>/ch10/login_failed.jsp</form-error-page>
+			<!-- 로그인 실패용 페이지 -->
+		</form-login-config>
+		<!-- 인증 처리 기법 -->
+	</login-config>
+	
+  		
   <display-name>JSPBook</display-name>
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>

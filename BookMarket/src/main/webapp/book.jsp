@@ -2,6 +2,7 @@
 <%@page import="dto.Book"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ page errorPage="exceptionNoBookId.jsp" %> <!-- p405 추가, 찾는 id가 없을 경우 오류 페이지 나옴 -->
 <%-- <jsp:useBean id="bookDAO" class="dao.BookRepository" scope="session" /> --%>
 <!-- dao클래스 사용 -->	
 <!DOCTYPE html>

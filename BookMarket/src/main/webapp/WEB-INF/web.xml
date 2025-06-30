@@ -1,5 +1,74 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="https://jakarta.ee/xml/ns/jakartaee" xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd" id="WebApp_ID" version="6.0">
+  <!-- p374 추가 -->
+  <security-role>
+  	<description></description>
+  	<role-name>admin</role-name>
+  </security-role>
+  <security-constraint>
+  	<display-name>BookMarket Security</display-name>
+  	<web-resource-collection>
+  		<web-resource-name>BookMarket</web-resource-name>
+  		<description></description>
+  		<url-pattern>/addBook.jsp</url-pattern>
+  	</web-resource-collection>
+  	<auth-constraint>
+  		<description>권한 관리자명</description>
+  		<role-name>admin</role-name>
+  	</auth-constraint>
+  </security-constraint>
+  <login-config>
+  	<auth-method>FORM</auth-method>
+  	<form-login-config>
+  	<form-login-page>/login.jsp</form-login-page>
+  	<form-error-page>/login_failed.jsp</form-error-page>
+  	</form-login-config>
+  </login-config>
+  
+  <!-- p405쪽, 404오류 페이지 커스텀 -->
+  <error-page>
+  	<error-code>404</error-code>
+  	<location>/exceptionNoPage.jsp</location>
+  </error-page>
+  <error-page>
+  	<error-code>405</error-code>
+  	<location>/exceptionNoPage.jsp</location>
+  </error-page>
+  <error-page>
+  	<error-code>500</error-code>
+  	<location>/exceptionNoPage.jsp</location>
+  </error-page>
+  
+  <!-- p437 필터 추가-->
+  <filter>
+  	<filter-name>LogFilter</filter-name>
+  	<filter-class>filter.LogFilter</filter-class>
+  	<!-- 자바로 만든 클래스 정의 -->
+  </filter>
+  <filter-mapping>
+  	<filter-name>LogFilter</filter-name>
+  	<url-pattern>/*</url-pattern>
+  	<!-- 모든 경로에 대한 필터 제공 -->
+  </filter-mapping>
+  
+   <!-- p440 파일로그 필터 추가-->
+   <filter>
+   	<filter-name>LogFileFilter</filter-name>
+   	<filter-class>filter.LogFileFilter</filter-class>
+   	<!-- 자바로 만든 클래스 정의 -->
+   	<init-param>
+   		<param-name>filename</param-name>
+   		<!-- java에서 가지고 갈 파라미터 값 -->
+   		<!-- getInitParameter("filename") -->
+   		<param-value>c:\\logs\\bookmarket.log</param-value>
+   	</init-param>
+   </filter>
+   <filter-mapping>
+  	<filter-name>LogFileFilter</filter-name>
+  	<url-pattern>/*</url-pattern>
+  	<!-- 모든 경로에 대한 필터 제공 -->
+  </filter-mapping>
+  
   <display-name>BookMarket</display-name>
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>

@@ -37,7 +37,9 @@
 
 		<div class="row align-items-md-stretch">
 			<div class="text-end">
-				<a href="?language=ko">Korean</a> | <a href="?language=en">English</a> 
+				<a href="?language=ko">Korean</a> | <a href="?language=en">English</a>
+				<a href="logout.jsp" class="btn btn-sm btn-success pull right">logout</a>
+				<!-- p378 추가 --> 
 			</div> <!-- 언어변환 버튼 -->
 			<form name="newBook" action="./processAddBook.jsp" 
 			class="form-horizontal" method="post" enctype="multipart/form-data">
