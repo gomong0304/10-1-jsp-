@@ -11,8 +11,8 @@
 <head>
 <meta charset="UTF-8">
 
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="./resources/css/bootstrap.min.css" rel="stylesheet"> <!-- cdn이 아닌 로컬에 저장된 css -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="./resources/css/bootstrap.min.css" rel="stylesheet" /> <!-- cdn이 아닌 로컬에 저장된 css -->
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO"
@@ -53,9 +53,8 @@
 	     	%>
 	     		<div class="col-md-4">
 	     			<div class="h-100 p-2">
-	     				<img src="./resources/images/<%=book.getFilename() %>" width="200" height="300" />
-	     					<!-- style="width:250; height:350" /> -->
-	     			
+	     				<img src="./resources/images/<%=book.getFilename() %>"	width="200" height="300" />
+	     				<!-- style=" width:250 ;  height :350 " -->
 	     				<h5><b><%=book.getName() %></b></h5>
 	     				<p> <%=book.getAuthor() %> </p>
 	     				<br>

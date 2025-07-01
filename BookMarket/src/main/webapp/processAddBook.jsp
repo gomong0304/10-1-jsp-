@@ -9,19 +9,18 @@
 <%
 	request.setCharacterEncoding("UTF-8"); // post 메서드 한글 지원 필수코드
 	
-	// 파일 업로드 처리용 코드 추가
+	// 파일업로드 처리용 코드 추가
 	String filename="";
-	String realFolder=application.getRealPath("/resources/images");
-						// 톰캣이 관리하는 실제 경로. http://192.168.111.101:8080/BookMarket을 의미
-	/* String realFolder="C:\\jsp-workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\BookMarket\\resources\\images"; // 미리 폴더를 생성해놔야한다. */
-	int maxSize = 5*1024*1024; //5메가까지 저장
-	String encType="UTF-8"; // 파일명이 한글일수 있으니까
+	String realFolder=application.getRealPath("/resources/images"); // 톰켓이 관리하는 실제경로
+					 // http://192.168.111.101:8080/BookMarket
+	int maxSize = 5 * 1024 * 1024 ; // 5메가까지 저장
+	String encType = "utf-8";		// 파일명이 한글일수 있음.
 	
 	MultipartRequest multipartRequest = new MultipartRequest(request, realFolder, maxSize, encType, new DefaultFileRenamePolicy());
-	// 만약 오류발생시 cos.jar 버전 확인 -> 마이그레이션해서 cos_2.jar 삽입
-	// enctype="multipart/form-data" 하면 request 영역이 아닌 multipartRequest으로 전달됨.
+	// 만약 오류발생시 cos.jar 버전 확인 -> 마이그레이션 cos_2.jar 삽입
+	// enctype="multipart/form-data" 하면 request영역이 아닌 multipartRequest으로 전달됨.
 	
-	// String bookId = request.getParameter("bookId"); getParameter -> multipartRequest로 변경함
+	// String bookId = request.getParameter("bookId"); -> multipartRequest로 변경함!!! 중요!!!
 	String bookId = multipartRequest.getParameter("bookId");
 	String name = multipartRequest.getParameter("name");
 	String unitPrice = multipartRequest.getParameter("unitPrice");
@@ -32,12 +31,11 @@
 	String category = multipartRequest.getParameter("category");
 	String unitsInStock = multipartRequest.getParameter("unitsInStock");
 	String condition = multipartRequest.getParameter("condition"); // post로 전달받은 값
-
-	// 다중 파일용 파일명 가져오기!
+	
+	// 다중파일용 파일명 가져오기!!!
 	Enumeration files = multipartRequest.getFileNames(); // 업로드 된 파일명들~ 을 가져옴
 	String fname = (String) files.nextElement();		 // 파일 있는지 여부
-	String fileName = multipartRequest.getFilesystemName(fname);	// 파일명을 가져와 변수에 넣음
-	
+	String fileName = multipartRequest.getFilesystemName(fname); // 파일명을 가져와 변수에 넣음
 	
 	int price;
 
@@ -69,7 +67,7 @@
 	newBook.setCategory(category);
 	newBook.setUnitsInStock(stock);
 	newBook.setCondition(condition);
-	newBook.setFilename(fileName); // 파일명 추가!
+	newBook.setFilename(fileName);  // 파일명 추가!!!
 	
 	System.out.print(newBook.toString());
 	dao.addBook(newBook); // 만들어진 객체를 리스트배열에 꼽는다.

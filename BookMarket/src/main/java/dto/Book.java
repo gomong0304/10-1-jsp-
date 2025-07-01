@@ -21,15 +21,16 @@ public class Book implements Serializable {	 // 직렬화
 	private String publisher;	    //출판사
 	private String category; 		//분류
 	private long   unitsInStock; 	//재고개수
-	private String releaseDate;   	//출판일(월/년)
-	
-
-
+	private String releaseDate;   //출판일(월/년)
 	private String condition; 		//신제품 or 구제품 or 리퍼브제품
 	// 추가
-	private String filename;		// 교재이미지
+	private String filename;		//교재 이미지 
+	// p469 쪽 추가 
+	private int quantity 	;		// 장바구니에 담은 개수
 	
 	
+
+
 	public Book() {
 		super(); 
 	} // 기본 생성자
@@ -148,23 +149,36 @@ public class Book implements Serializable {	 // 직렬화
 		return serialVersionUID;
 	}
 
+	// 이미지용 게터/세터 추가
 	public String getFilename() {
 		return filename;
 	}
 
-
 	public void setFilename(String filename) {
 		this.filename = filename;
 	}
-	
 
-	@Override // 객체 테스트 출력용 System.out.println(book.toString())
+	// 장바구니용 수량 추가 p469
+	public int getQuantity() {
+		return quantity;
+	}
+
+
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
+
+
+	@Override // 객체 테스트 출력용 System.out.println(book.toString()) 장바구니용 추가 완료
 	public String toString() {
 		return "Book [bookId=" + bookId + ", name=" + name + ", unitPrice=" + unitPrice + ", author=" + author
 				+ ", description=" + description + ", publisher=" + publisher + ", category=" + category
 				+ ", unitsInStock=" + unitsInStock + ", releaseDate=" + releaseDate + ", condition=" + condition
-				+ ", filename=" + filename + "]";
+				+ ", filename=" + filename + ", quantity=" + quantity + "]";
 	}
+
+	
+
 	
 	
 	
