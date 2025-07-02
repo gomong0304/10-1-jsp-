@@ -18,7 +18,7 @@
 	String realFolder=application.getRealPath("/resources/images"); // 톰켓이 관리하는 실제경로
 					 // http://192.168.111.101:8080/BookMarket
 	int maxSize = 5 * 1024 * 1024 ; // 5메가까지 저장
-	String encType = "utf-8";		// 파일명이 한글일수 있음.
+	String encType = "UTF-8";		// 파일명이 한글일수 있음.
 	
 	MultipartRequest multipartRequest = new MultipartRequest(request, realFolder, maxSize, encType, new DefaultFileRenamePolicy());
 	// 만약 오류발생시 cos.jar 버전 확인 -> 마이그레이션 cos_2.jar 삽입
@@ -58,22 +58,45 @@
 	// 재고가 문자타입으로 전달됨, long 타입으로 변경
 	
 	PreparedStatement pstmt=null;
+	ResultSet rs=null;
 	
-	String sql="INSERT INTO book VALUES(?,?,?,?,?,?,?,?,?,?,?)";
-	
+	String sql="SELECT * FROM book WHERE b_id=?";
 	pstmt=conn.prepareStatement(sql);
 	pstmt.setString(1, bookId);
-	pstmt.setString(2, name);
-	pstmt.setInt(3, price);
-	pstmt.setString(4, author);
-	pstmt.setString(5, description);
-	pstmt.setString(6, publisher);
-	pstmt.setString(7, category);
-	pstmt.setLong(8, stock);
-	pstmt.setString(9, releaseDate);
-	pstmt.setString(10, condition);
-	pstmt.setString(11, fileName);
-	pstmt.executeUpdate();
+	rs=pstmt.executeQuery();
+	
+	if(rs.next()){
+		if (fileName!=null){
+			sql="UPDATE book SET b_name=?, b_unitPrice=?, b_author=?, b_description=?, b_publisher=?, b_category=?, b_unitsInStock=?, b_releaseDate=?, b_condition=?, b_fileName=? WHERE b_id=?";
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, name);
+			pstmt.setInt(2, price);
+			pstmt.setString(3, author);
+			pstmt.setString(4, description);
+			pstmt.setString(5, publisher);
+			pstmt.setString(6, category);
+			pstmt.setLong(7, stock);
+			pstmt.setString(8, releaseDate);
+			pstmt.setString(9, condition);
+			pstmt.setString(10, fileName);
+			pstmt.setString(11, bookId);
+			pstmt.executeUpdate();
+		} else{
+			sql="UPDATE book SET b_name=?, b_unitPrice=?, b_author=?, b_description=?, b_publisher=?, b_category=?, b_unitsInStock=?, b_releaseDate=?, b_condition=? WHERE b_id=?";
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, name);
+			pstmt.setInt(2, price);
+			pstmt.setString(3, author);
+			pstmt.setString(4, description);
+			pstmt.setString(5, publisher);
+			pstmt.setString(6, category);
+			pstmt.setLong(7, stock);
+			pstmt.setString(8, releaseDate);
+			pstmt.setString(9, condition);
+			pstmt.setString(10, bookId);
+			pstmt.executeUpdate();
+		}
+	}
 	
 	if(pstmt!=null) pstmt.close();
 	if(conn!=null) conn.close();
@@ -97,7 +120,7 @@
 	System.out.print(newBook.toString());
 	dao.addBook(newBook); // 만들어진 객체를 리스트배열에 꼽는다. */
 	
-	response.sendRedirect("books.jsp"); // 성공시 강제로 이동하는 페이지
+	response.sendRedirect("editBook.jsp?edit=update"); // 성공시 강제로 이동하는 페이지
 
 
 %>

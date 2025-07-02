@@ -1,16 +1,8 @@
-<%@page import="java.sql.PreparedStatement"%>
-<%@page import="java.sql.ResultSet"%>
-<%@page import="dao.BookRepository"%>
-<%@ page import="dto.Book"%>
-<%@ page import="java.util.ArrayList"%>
+<%@page import="java.sql.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%-- <jsp:useBean id="bookDAO" class="dao.BookRepository" scope="session" /> --%>
-<!-- 자바 빈즈를 이용해서 객체를 가져옴.             저장은 세션 영역 -->
 
-<!DOCTYPE html>
-<html>
-<head>
+<!DOCTYPE html><html><head>
 <meta charset="UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -20,8 +12,21 @@
 	integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO"
 	crossorigin="anonymous"></script>
 
-<title>환영합니다. 책판매 쇼핑몰입니다.....</title>
-</head>
+<script type="text/javascript">
+	function  deleteConfirm(id) {
+		if(confirm("해당 도서를 삭제합니다!!")==true)
+			location.href="./deleteBook.jsp?id=" +id;
+		else
+			return;
+	}
+</script>
+
+<title>도서 수정</title></head>
+
+<%
+	String edit=request.getParameter("edit");
+%>
+
 <body>
 
 	<div class="container py-4">
@@ -29,34 +34,17 @@
 		<%@ include file="menu.jsp" %> 
 		<!-- 메뉴바를 외부파일로 연결 -->
 		
-		
-		
 		<div class="p-5 mb-4 bg-body-tertiary rounded-3">
-			<div class="container-fluid py-1">
-				<h1 class="display-5 fw-bold">도서목록</h1>
-				<p class="col-md-8 fs-4">BookList</p>
+			<div class="container-fluid py-5">
+				<h1 class="display-5 fw-bold">도서 수정</h1>
+				<p class="col-md-8 fs-4">BookEditing</p>
 			</div>
 		</div> <!-- 중간타이틀 : 상단 box -->
-		
-		<%-- p587 제외 jdbc 사용으로 더미데이터 종료 <%
-			BookRepository dao = BookRepository.getInstance(); // 폼으로 입력한 책 객체용
-			ArrayList<Book> listOfBooks = dao.getAllBooks();
-		//리스트타입으로 Book객체를 만들고 전체 리스트를 가져와 listOfBooks에 담음
-		//세션 영역에 보관중.
-		%> --%>
 		
 		<%@ include file="dbconn.jsp" %>
 		<!-- jdbd 1,2 단계 연결자 -->
 		
-		
 		<div class="row align-items-md-stretch   text-center">
-	     	
-	     	<%-- p587 제외 jdbc 사용으로 더미데이터 종료 <%
-	     		for(int i=0 ; i< listOfBooks.size(); i++){
-	     			// 리스트 배열에 0번 부터 끝까지 1씩 증가(인덱스)
-	     			Book book = listOfBooks.get(i); // .add 추가 .get 가져옴
-	     	%> --%>
-	     	
 	     	<%
 	     		PreparedStatement pstmt=null;
 	     		ResultSet rs=null;
@@ -65,18 +53,30 @@
 	     		rs=pstmt.executeQuery();			// 4단계
 	     		while(rs.next()){ // ResultSet 표에 1번 행부터 마지막 행까지 true를 리턴
 	     	%>
-	     	
 	     		<div class="col-md-4">
-	     			<div class="h-100 p-2">
-	     				<img src="./resources/images/<%=rs.getString("b_filename") %>"	width="200" height="300" />
-	     				<!-- style=" width:250 ;  height :350 " -->
-	     				<h5><b><%=rs.getString("b_name") %></b></h5>
-	     				<p> <%=rs.getString("b_author") %> </p>
+	     			<div class="h-100 p-2 round-3">
+	     				<img src="./resources/images/<%=rs.getString("b_filename") %>"	width="200" height="300" /> <!-- style=" width:250 ;  height :350 " -->
+	     				<p><h5><b><%=rs.getString("b_name") %></b></h5>
+	     				<p> <%=rs.getString("b_author") %>
 	     				<br>
 	     					<%=rs.getString("b_publisher") %> | <%= rs.getString("b_releaseDate") %>
 	     				<p> <%=rs.getString("b_description").substring(0,10) %>...</p>
 	     				<p> <%=rs.getString("b_unitPrice") %>원	</p>
-	     				<p> <a href="./book.jsp?id=<%=rs.getString("b_id") %>" class="btn btn-secondary" role="button"> 상세정보 &raquo;</a>
+	     				<p><%
+	     						if(edit.equals("update")){
+	     					%>
+	     					<a href="./updateBook.jsp?id=<%=rs.getString("b_id") %>" class="btn btn-success" role="button"> 정보 수정 &raquo;</a>
+	     				
+	     					<%
+	     						} else if(edit.equals("delete")){// if문 종료
+	     				
+	     					%>
+	     				
+	     					<a href="#" onclick="deleteConfirm('<%=rs.getString("b_id")%>')" class="btn btn-danger" role="button">도서 삭제 &raquo;</a>
+	     					
+	     					<%
+	     						}
+	     					%>
 	     			</div>
 	     		</div>
 	     	<%

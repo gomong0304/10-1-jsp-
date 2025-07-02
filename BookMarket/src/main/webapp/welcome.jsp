@@ -26,7 +26,7 @@
 			String tagline = "환영합니다. 웹 쇼핑몰 입니다. ";%>
 
 		<div class="p-5 mb-4 bg-body-tertiary rounded-3">
-			<div class="container-fluid py-1">
+			<div class="container-fluid py-5">
 				<h1 class="display-5 fw-bold"><%=greeting%></h1>
 				<p class="col-md-8 fs-4">BookMarket</p>
 			</div>
@@ -37,21 +37,21 @@
 				<div class="h-100 p-5">
 			  	   <h3><%=tagline%></h3>
 			  	   <%
-			  	   		Date day = new Date();
+			  	   		Date day = new java.util.Date();
 			  	   		String am_pm;	// 오전,오후 출력용
 			  	   		int hour = day.getHours(); // 시간을 가져옴 
 			  	   		int minute = day.getMinutes(); // 분을 가져옴
 			  	   		int second = day.getSeconds(); // 초를 가져옴
 			  	   		if(hour / 12 == 0 ){
-			  	   			am_pm = "오전";
+			  	   			am_pm = "AM";
 			  	   		}else {
-			  	   			am_pm = "오후";
+			  	   			am_pm = "PM";
 			  	   			hour =  hour - 12; // 오후 20 -> 오후 8
 			  	   		}
 			  	   		String CT = hour + ":" + minute + ":" + second + " " + am_pm;
-			  	   		out.println("현재 접속 시간 : " + CT + "\n");
-			  	   				
-			  	   %>         
+			  	   		out.println("현재 접속 시간 : " + CT + "\n");			
+			  	   %>    
+			  	        
 		        </div>
 	    	</div>   
 	   	</div> <!-- 본문영역 : 중간 box --> 
@@ -59,6 +59,5 @@
 		<%@ include file="footer.jsp" %>
 
 	</div>
-
 </body>
 </html>

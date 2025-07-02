@@ -16,7 +16,10 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO"
 	crossorigin="anonymous"></script>
-	
+
+
+<title>교재 상세 페이지 입니다......</title>
+
 <script type="text/javascript">
 	/* 장바구니용 컨펌(예/아니오) 추가용 */
 	function addToCart(){
@@ -27,8 +30,6 @@
 		}
 	}
 </script>
-
-<title>교재 상세 페이지 입니다......</title>
 </head>
 <body>
 
@@ -38,7 +39,7 @@
 		<!-- 메뉴바를 외부파일로 연결 -->
 		
 		<div class="p-5 mb-4 bg-body-tertiary rounded-3">
-			<div class="container-fluid py-1">
+			<div class="container-fluid py-5">
 				<h1 class="display-5 fw-bold">도서정보</h1>
 				<p class="col-md-8 fs-4">BookInfo</p>
 			</div>
